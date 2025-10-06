@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 2025 Green Glow: How to See Comet Lemmon with Your Own Eyes</title>
+    <meta name="description" content="A comprehensive guide to witnessing Comet C/2025 A6 (Lemmon), a once-in-a-millennium celestial spectacle with a rare green glow.">
+    <meta name="author" content="Stiles Seymens">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #fff;
+            padding: 20px;
+            font-feature-settings: "liga" 1, "kern" 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Reading Progress Bar */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00ff88, #00cc88);
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s ease;
+            box-shadow: 0 2px 4px rgba(0, 255, 136, 0.3);
+        }
+        
+        /* Floating Table of Contents */
+        .toc {
+            position: fixed;
+            right: 40px;
+            top: 120px;
+            width: 200px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateX(20px);
+            transition: opacity 0.3s, transform 0.3s;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .toc.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .toc h4 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #999;
+            margin-bottom: 12px;
+        }
+        
+        .toc a {
+            display: block;
+            font-size: 13px;
+            color: #666;
+            text-decoration: none;
+            padding: 6px 0;
+            border-left: 2px solid transparent;
+            padding-left: 12px;
+            margin-left: -12px;
+            transition: all 0.2s;
+        }
+        
+        .toc a:hover {
+            color: #00cc88;
+            border-left-color: #00cc88;
+        }
+        
+        .toc a.active {
+            color: #00cc88;
+            border-left-color: #00cc88;
+            font-weight: 600;
+        }
+        
+        /* Countdown Timer */
+        .countdown-widget {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 48px 0;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        }
+        
+        .countdown-widget h3 {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 16px;
+            opacity: 0.95;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 20px;
+        }
+        
+        .countdown-item {
+            text-align: center;
+        }
+        
+        .countdown-value {
+            font-size: 36px;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+        }
+        
+        .countdown-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.8;
+            margin-top: 8px;
+        }
+        
+        .container {
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            color: #000;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .byline {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 32px;
+            font-style: italic;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: auto;
+            margin: 32px 0;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+        }
+        
+        .hero-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .section-image {
+            width: 100%;
+            height: auto;
+            margin: 32px 0;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: zoom-in;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        
+        .section-image.visible {
+            opacity: 1;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .section-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .image-caption {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin-top: 8px;
+            font-style: italic;
+        }
+        
+        /* Image Modal for Zoom */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            cursor: zoom-out;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: zoomIn 0.3s ease;
+        }
+        
+        @keyframes zoomIn {
+            from { transform: translate(-50%, -50%) scale(0.8); }
+            to { transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-top: 48px;
+            margin-bottom: 20px;
+            color: #000;
+            letter-spacing: -0.01em;
+            opacity: 0;
+            scroll-margin-top: 20px;
+        }
+        
+        h2.visible {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        h2:first-of-type {
+            font-size: 28px;
+            color: #333;
+            font-weight: 500;
+            margin-top: 32px;
+        }
+        
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-top: 32px;
+            margin-bottom: 16px;
+            color: #000;
+            opacity: 0;
+            scroll-margin-top: 20px;
+        }
+        
+        h3.visible {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        p {
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            color: #333;
+        }
+        
+        /* Highlight-to-Share Feature */
+        .highlight-menu {
+            position: absolute;
+            background: #000;
+            border-radius: 6px;
+            padding: 8px 12px;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        
+        .highlight-menu button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 4px 8px;
+            margin: 0 4px;
+            transition: opacity 0.2s;
+        }
+        
+        .highlight-menu button:hover {
+            opacity: 0.7;
+        }
+        
+        /* Quote Styling with Copy Button */
+        blockquote {
+            border-left: 3px solid #00cc88;
+            padding-left: 24px;
+            margin: 32px 0;
+            font-style: italic;
+            color: #333;
+            font-size: 22px;
+            line-height: 1.7;
+            position: relative;
+        }
+        
+        blockquote::before {
+            content: '"';
+            font-size: 64px;
+            position: absolute;
+            left: -20px;
+            top: -20px;
+            color: #00cc88;
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+        
+        strong {
+            font-weight: 600;
+            color: #000;
+        }
+        
+        em {
+            font-style: italic;
+        }
+        
+        ul, ol {
+            margin: 24px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 12px;
+            color: #333;
+        }
+        
+        li::marker {
+            color: #00cc88;
+        }
+        
+        a {
+            color: #0066cc;
+            text-decoration: none;
+            border-bottom: 1px solid #0066cc;
+            transition: all 0.2s;
+        }
+        
+        a:hover {
+            color: #00cc88;
+            border-bottom-color: #00cc88;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #e0e0e0;
+            margin: 48px 0;
+        }
+        
+        /* Interactive Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 32px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Reading Time Estimator */
+        .reading-time {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+        
+        .footer {
+            margin-top: 64px;
+            padding-top: 32px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+        }
+        
+        .author-bio {
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* Social Share Buttons */
+        .share-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin: 32px 0;
+        }
+        
+        .share-btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .share-btn.twitter {
+            background: #1DA1F2;
+            color: white;
+        }
+        
+        .share-btn.facebook {
+            background: #4267B2;
+            color: white;
+        }
+        
+        .share-btn.copy {
+            background: #00cc88;
+            color: white;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: #00cc88;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(0,204,136,0.3);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            display: flex;
+        }
+        
+        .back-to-top:hover {
+            background: #00ff88;
+            transform: translateY(-4px);
+        }
+        
+        @media (max-width: 1200px) {
+            .toc {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+            
+            h2 {
+                font-size: 26px;
+            }
+            
+            h3 {
+                font-size: 20px;
+            }
+            
+            p, li {
+                font-size: 18px;
+            }
+            
+            .countdown {
+                gap: 12px;
+            }
+            
+            .countdown-value {
+                font-size: 28px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            .reading-progress, .toc, .share-buttons, .back-to-top, .countdown-widget {
+                display: none;
+            }
+            
+            body {
+                background: white;
+            }
+            
+            .section-image, .hero-image {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="readingProgress"></div>
+    
+    <!-- Floating Table of Contents -->
+    <nav class="toc" id="toc">
+        <h4>Contents</h4>
+        <a href="#key-findings" data-section="key-findings">Key Findings</a>
+        <a href="#detailed-analysis" data-section="detailed-analysis">Detailed Analysis</a>
+        <a href="#how-to-spot" data-section="how-to-spot">How to Spot</a>
+        <a href="#big-picture" data-section="big-picture">The Big Picture</a>
+        <a href="#checklist" data-section="checklist">Stargazer's Checklist</a>
+        <a href="#final-thoughts" data-section="final-thoughts">Final Thoughts</a>
+    </nav>
+    
+    <!-- Image Zoom Modal -->
+    <div id="imageModal" class="modal">
+        <img class="modal-content" id="modalImage">
+    </div>
+    
+    <div class="container">
+        <h1>The 2025 Green Glow: How to See Comet Lemmon with Your Own Eyes</h1>
+        
+        <p class="byline">By Stiles Seymens</p>
+        
+        <div class="reading-time">⏱️ 12 min read</div>
+        
+        <img src="hero_image.jpeg" alt="Comet Lemmon's Green Glow—A Once-in-a-Millennium Spectacle" class="hero-image zoomable">
+        
+        <!-- Countdown Widget -->
+        <div class="countdown-widget">
+            <h3>⏳ Time Until Closest Approach</h3>
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-value" id="days">0</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="hours">0</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="minutes">0</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-value" id="seconds">0</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+        
+        <h2>October 2025: A Once-in-a-Millennium Celestial Spectacle That Could Light Up Your Night Sky</h2>
+        
+        <h3>The Green Glow of a Cosmic Rarity</h3>
+        
+        <p>Picture this: A ghostly green streak cutting across the night sky, its eerie glow a cosmic fingerprint from deep space. That's Comet C/2025 A6 (Lemmon), a celestial marvel that will make its closest approach to Earth on October 21, 2025, coming within a staggering 56 million miles (90 million km)—closer than Mars has ever been to Earth. This isn't just another comet; it's a rare interloper with a luminous secret: its unmistakable green hue, caused by diatomic carbon in its coma. If you're a stargazer, an astronomy enthusiast, or just someone who's ever looked up at the night sky in awe, this is a moment you won't want to miss.</p>
+        
+        <p>But here's the catch: Comet Lemmon's brilliance is as unpredictable as it is breathtaking. While some sources suggest it may be visible to the naked eye under dark skies, others argue binoculars will be essential. The stakes of visibility are high—its brightness could reach magnitude 4–5, or as low as 7.3, depending on how its coma reacts to the Sun's heat. What does that mean for you? It means now is the time to learn how to spot it, when to look, and how to ensure you don't miss this cosmic event of a lifetime.</p>
+        
+        <!-- Key Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-value">56M</span>
+                <span class="stat-label">Miles to Earth</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value">1,350</span>
+                <span class="stat-label">Year Orbit</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value">4-5</span>
+                <span class="stat-label">Magnitude</span>
+            </div>
+        </div>
+        
+        <h2 id="key-findings">Key Findings: What You Need to Know About Comet Lemmon</h2>
+        
+        <h3>1. Closest Approach to Earth: October 21, 2025</h3>
+        
+        <p>Comet Lemmon's journey to Earth will be its most critical moment of visibility. At 0.6 astronomical units (AU)—about 89 million kilometers—it will pass just over halfway to the Moon's distance from Earth. But this isn't its closest point; that honor goes to November 8, when it will reach perihelion (its closest point to the Sun) at 0.53 AU, or roughly 79 million kilometers from Earth. This dual proximity—being close to both the Sun and Earth—creates a rare viewing window that astronomy enthusiasts can't afford to overlook.</p>
+        
+        <h3>2. Brightness Predictions: From Naked-Eye Wonder to Binocular Necessity</h3>
+        
+        <p>The comet's brightness is the elephant in the room. While optimistic estimates suggest it could reach magnitudes 4–5, making it potentially visible to the naked eye under ideal conditions, conservative models predict magnitude 7.3, requiring binoculars or a telescope for confirmation. Current observations show it at magnitude 6.2–6.6, trending brighter. This means that by October 21, it could be within reach of naked-eye viewing—if the sky cooperates.</p>
+        
+        <ul>
+            <li><strong>Magnitude 4–5:</strong> Visible to the naked eye under dark skies (no light pollution).</li>
+            <li><strong>Magnitude 7.3:</strong> Visible only with binoculars or a telescope (10x50 magnification recommended).</li>
+            <li><strong>Current status:</strong> Magnitude 6.2–6.6 (likely to brighten as it nears Earth).</li>
+        </ul>
+        
+        <p>The unpredictability of comets means that even the best predictions are educated guesses. The key takeaway? Don't wait until November to look up—this comet's peak visibility is in late October, and its brightness could change rapidly.</p>
+        
+        <img src="Section 2.jpeg" alt="Brightness Comparison Chart" class="section-image zoomable">
+        <p class="image-caption">Chart comparing brightness estimates for Comet Lemmon</p>
+        
+        <img src="Data Viz.jpeg" alt="Brightness Predictions Data Visualization" class="section-image zoomable">
+        <p class="image-caption">Brightness estimates vary due to unpredictable cometary activity</p>
+        
+        <h3>3. Visibility Conditions: A Northern Hemisphere Gift</h3>
+        
+        <p>Comet Lemmon is a Northern Hemisphere gem, with its trajectory positioning it best for observers in the northern latitudes. From late October to early November, it will be visible pre-sunrise and post-sunset, making it a prime target for early-morning skywatchers.</p>
+        
+        <p>However, the full moon on November 5 poses a challenge. The moon's brightness will drown out fainter objects, so the optimal time to spot Comet Lemmon is before November 5 or after November 7, when the moon's light wanes.</p>
+        
+        <h3>4. Scientific and Historical Context: A Comet with a Unique Past</h3>
+        
+        <p>Comet Lemmon's green glow is its most striking feature, but it also carries a rare cosmic history. Its orbital period is estimated at 1,350 years, but gravitational interactions with Jupiter have shortened it by about 200 years—a testament to the chaotic dance of celestial bodies.</p>
+        
+        <p>Discovered in January 2025 by the Mount Lemmon Survey, this comet has already been observed in precovery images dating back to November 2024, a phenomenon that allows astronomers to trace its path long before it became visible.</p>
+        
+        <img src="Section 4.jpeg" alt="Comet Lemmon's Trajectory and Viewing Window" class="section-image zoomable">
+        <p class="image-caption">Diagram showing Comet Lemmon's trajectory and optimal viewing window</p>
+        
+        <h2 id="detailed-analysis">Detailed Analysis: What Makes Comet Lemmon So Unique?</h2>
+        
+        <h3>Orbital Dynamics and Its Journey to Earth</h3>
+        
+        <p>Comet Lemmon's journey is a cosmic ballet choreographed by gravity. It was first identified in January 2025, but its trajectory has been traced back to precovery images from November of the previous year. This anomaly highlights a rare phenomenon: comets can appear suddenly, yet their paths are often preordained by the gravitational tides of planets like Jupiter.</p>
+        
+        <ul>
+            <li><strong>Inbound orbital period:</strong> ~1,350 years</li>
+            <li><strong>Outbound orbital period:</strong> ~1,150 years (shortened by Jupiter's gravitational influence)</li>
+        </ul>
+        
+        <p>This means that we may not see Comet Lemmon again for over a millennium—a sobering reminder of how fleeting cosmic encounters can be.</p>
+        
+        <h3>The Green Glow: Diatomic Carbon and Its Cosmic Alchemy</h3>
+        
+        <p>Comet Lemmon's green hue is a signature of its chemical composition. The glow comes from diatomic carbon (C₂), an unusual molecule that emits a distinct green light when illuminated by the Sun. This phenomenon is rare; most comets appear faint or white, with occasional hints of green from other molecules like CN (cyanide).</p>
+        
+        <p><strong>Why is this significant?</strong></p>
+        
+        <ul>
+            <li>It provides astronomers with a rare opportunity to study the chemical makeup of comets in real time.</li>
+            <li>The green glow can help identify how much volatile material the comet is releasing, offering clues about its origins in the outer solar system.</li>
+        </ul>
+        
+        <h3>Brightness and Viewing Challenges: The Unpredictable Nature of Comets</h3>
+        
+        <p>Comets are notoriously unpredictable. Their brightness depends on several factors:</p>
+        
+        <ul>
+            <li><strong>Size of the nucleus:</strong> Larger comets can release more material, creating a brighter coma.</li>
+            <li><strong>Activity level:</strong> As the comet nears the Sun, solar heating can cause volatile materials to erupt violently.</li>
+            <li><strong>Distance from Earth:</strong> The closer the comet, the brighter it appears (inversely proportional to distance squared).</li>
+        </ul>
+        
+        <p>This makes predicting Comet Lemmon's brightness a balancing act between optimism and caution. While it may brighten significantly as it approaches Earth, its final magnitude remains a mystery until the very last days of October.</p>
+        
+        <h2 id="how-to-spot">How to Spot Comet Lemmon: A Practical Guide for Stargazers</h2>
+        
+        <h3>When and Where to Look</h3>
+        
+        <ul>
+            <li><strong>Best viewing window:</strong> Late October (20–31) to early November (1–7).</li>
+            <li><strong>Northern Hemisphere observers:</strong> Look toward the northeastern sky shortly after sunset or before sunrise. The comet will be circumpolar, meaning it won't set below the horizon, making it visible for several hours each night.</li>
+            <li><strong>Southern Hemisphere observers:</strong> While still visible, Comet Lemmon will be lower on the horizon and less prominent.</li>
+        </ul>
+        
+        <h3>Equipment Recommendations</h3>
+        
+        <ul>
+            <li><strong>Naked eye:</strong> Only if the comet brightens to magnitude 4–5. Requires a dark, rural sky with minimal light pollution.</li>
+            <li><strong>Binoculars (10x50 magnification):</strong> Ideal for magnitude 6–7 comets. Will reveal the comet's green glow and faint tail.</li>
+            <li><strong>Telescopes:</strong> Not necessary, but can enhance visibility of the coma and tail details.</li>
+        </ul>
+        
+        <h3>Optimal Viewing Conditions</h3>
+        
+        <ul>
+            <li><strong>Moon phase:</strong> Avoid observing around the full moon (November 5), as its light will obscure faint objects.</li>
+            <li><strong>Weather:</strong> Clear skies are essential—cloud cover can render even bright comets invisible. Check weather forecasts for your area in late October and early November.</li>
+            <li><strong>Light pollution:</strong> Use a light-pollution map (e.g., <a href="https://www.lightpollutionmap.info/" target="_blank">Light Pollution Map</a>) to find the darkest skies near you.</li>
+        </ul>
+        
+        <h2 id="big-picture">The Big Picture: Why Comet Lemmon Matters</h2>
+        
+        <h3>A Window into the Solar System's Past</h3>
+        
+        <p>Comets are time capsules from the early solar system, preserving materials from over 4.5 billion years ago. By studying Comet Lemmon's chemical composition and trajectory, scientists can piece together clues about the formation of planets, the origins of water on Earth, and even the building blocks of life itself.</p>
+        
+        <ul>
+            <li><strong>Diatomic carbon:</strong> A rare molecule that may help explain the chemistry of Earth's primordial atmosphere.</li>
+            <li><strong>Orbital history:</strong> Its 1,350-year cycle suggests it originated in the distant Oort Cloud—a frozen reservoir of icy bodies that orbits the Sun at the edge of the solar system.</li>
+        </ul>
+        
+        <h3>A Reminder of Cosmic Rarity</h3>
+        
+        <p>Comet Lemmon is a reminder that the universe is full of surprises. It's not just about seeing something beautiful—it's about participating in a cosmic event that may never recur in our lifetimes. Whether you spot it with your own eyes or through a telescope, this comet is a once-in-a-millennium gift.</p>
+        
+        <img src="Section 6.jpeg" alt="Historical Comets with Green Hues" class="section-image zoomable">
+        <p class="image-caption">Photo collage of historical comets with green hues, including Hale-Bopp</p>
+        
+        <h2 id="checklist">How to Prepare for Comet Lemmon: A Stargazer's Checklist</h2>
+        
+        <ol>
+            <li><strong>Track its position:</strong> Use apps like <a href="https://theskylive.com/c2025a6-info" target="_blank">TheSkyLive</a> or <a href="https://stellarium.org/" target="_blank">Stellarium</a> to track Comet Lemmon's coordinates.</li>
+            <li><strong>Check skies:</strong> Download a light pollution map and observe from the darkest possible location near you.</li>
+            <li><strong>Gather equipment:</strong> Binoculars (10x50), a red flashlight for preserving night vision, and warm clothing for early-morning viewing.</li>
+            <li><strong>Know the sky:</strong> Identify constellations like Cassiopeia or Taurus (where the comet will be located) using star charts or apps like SkySafari.</li>
+            <li><strong>Share the moment:</strong> If you spot Comet Lemmon, document it! Share photos or stories with fellow stargazers on social media (tag #CometLemmon2025).</li>
+        </ol>
+        
+        <h2 id="final-thoughts">Final Thoughts: A Cosmic Invitation</h2>
+        
+        <p>Comet Lemmon is more than a fleeting spectacle—it's an invitation to reconnect with the cosmos. Whether it shines brightly in your sky or requires binoculars, its very existence reminds us of the vastness and wonder that lie beyond our planet.</p>
+        
+        <p>So mark your calendars: <strong>October 21, 2025</strong> is the day to remember. Whether you're an amateur astronomer or a curious observer, this comet offers a chance to witness something truly extraordinary.</p>
+        
+        <p>As the poet Rumi once said: <em>"You are not a drop in the ocean. You are the entire ocean in a drop."</em> Comet Lemmon is that drop—a tiny, glowing fragment of the universe's vastness. Will you see it?</p>
+        
+        <!-- Share Buttons -->
+        <div class="share-buttons">
+            <button class="share-btn twitter" onclick="shareTwitter()">Share on Twitter</button>
+            <button class="share-btn facebook" onclick="shareFacebook()">Share on Facebook</button>
+            <button class="share-btn copy" onclick="copyLink()">Copy Link</button>
+        </div>
+        
+        <hr>
+        
+        <h2>🚀 Follow for More Celestial Updates</h2>
+        
+        <p>If this article inspired you, follow me on Medium for updates on upcoming astronomical events, space exploration breakthroughs, and tips to observe the cosmos like a pro.</p>
+        
+        <h3>Next Steps for You:</h3>
+        
+        <ol>
+            <li><strong>Mark your calendar:</strong> Track Comet Lemmon's position using <a href="https://theskylive.com/c2025a6-info" target="_blank">TheSkyLive</a>.</li>
+            <li><strong>Share this guide:</strong> Pass it on to fellow stargazers—this is a cosmic event that deserves more attention.</li>
+            <li><strong>Stay curious:</strong> The universe has more wonders waiting to be discovered.</li>
+        </ol>
+        
+        <div class="footer">
+            <p><strong>Stiles Seymens</strong></p>
+            <p class="author-bio">Writer | Astronomy Enthusiast | Exploring the Cosmos One Star at a Time</p>
+        </div>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
+    
+    <script>
+        // Reading Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('readingProgress').style.width = scrolled + '%';
+            
+            // Show/hide back to top button
+            const backToTop = document.getElementById('backToTop');
+            if (winScroll > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        // Countdown Timer
+        function updateCountdown() {
+            const targetDate = new Date('October 21, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+            } else {
+                document.getElementById('countdown').innerHTML = '<p style="color: white; font-size: 24px;">🌟 The moment has arrived! Look up!</p>';
+            }
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections
+        document.querySelectorAll('h2, h3, .section-image').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Table of Contents - Active Section Tracking
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('h2[id]');
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.toc a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Show TOC after scrolling past intro
+            const toc = document.getElementById('toc');
+            if (window.pageYOffset > 800) {
+                toc.classList.add('visible');
+            }
+        });
+        
+        // Smooth scroll for TOC links
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Image Zoom Modal
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        
+        document.querySelectorAll('.zoomable').forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = 'block';
+                modalImg.src = this.src;
+            });
+        });
+        
+        modal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        // Share Functions
+        function shareTwitter() {
+            const url = window.location.href;
+            const text = "Check out this amazing guide to seeing Comet Lemmon in 2025! 🌠";
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+        }
+        
+        function shareFacebook() {
+            const url = window.location.href;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        }
+        
+        function copyLink() {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+                const btn = document.querySelector('.share-btn.copy');
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+        
+        // Scroll to Top
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Stat Cards Animation on Hover
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                this.querySelector('.stat-value').style.color = 'white';
+                this.querySelector('.stat-label').style.color = 'rgba(255,255,255,0.9)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+                this.querySelector('.stat-value').style.color = '#667eea';
+                this.querySelector('.stat-label').style.color = '#666';
+            });
+        });
+    </script>
+</body>
+</html>
